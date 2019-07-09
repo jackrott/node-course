@@ -1,12 +1,26 @@
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
-geocode('Talagante', (error, data) => {
-    console.log('error', error)
-    console.log('data', data)
-})
+const address = process.argv[2]
 
-forecast(-70.93333, -33.66667, (error, data) => {
+if(!address) {
+    console.log('Ingrese la dirección porfavor')
+}
+
+geocode(address, (error, data) => {
     console.log('error', error)
     console.log('data', data)
+
+    if(error) {
+        return console.log(error)
+    }
+
+    forecast(data.latitude, data.longitude, (error, forecastData) => {
+        if(error) {
+            return console.log(error)
+        }
+
+        console.log(data.location)
+        console.log(forecastData)
+    })
 })
