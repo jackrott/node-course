@@ -7,20 +7,17 @@ if(!address) {
     console.log('Ingrese la dirección porfavor')
 }
 
-geocode(address, (error, data) => {
-    console.log('error', error)
-    console.log('data', data)
-
+geocode(address, (error, {latitude, longitude, location}) => {
     if(error) {
         return console.log(error)
     }
 
-    forecast(data.latitude, data.longitude, (error, forecastData) => {
+    forecast(latitude, longitude, (error, forecastData) => {
         if(error) {
             return console.log(error)
         }
 
-        console.log(data.location)
+        console.log(location)
         console.log(forecastData)
     })
 })
