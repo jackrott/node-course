@@ -1,7 +1,4 @@
 //crud
-/*const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
-const ObjectID = mongodb.ObjectID*/
 const { MongoClient, ObjectID } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
@@ -15,20 +12,27 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true}, (error, client) => 
     }
 
     const db = client.db(databaseName)
-    
-    /*db.collection('users').findOne({name: 'Hernan'}, (error, user) => {
-        if(error) {
-            return console.log('problemas al obtener la información del usuario')
+
+    db.collection('tasks').updateMany({
+        completed: false
+    }, {
+        $set: {
+            completed: true
         }
-
-        console.log(user)
+    }).then((result) => {
+        console.log(result)
+    }).catch((error) => {
+        console.log(error)
+    })
+    /*const updatePromise = db.collection('users').updateOne({
+        _id: new ObjectID("5e9497a755a2f942f41bc7cb")
+    }, {
+       $inc: {
+           age: 1
+        }
+    }).then((result) => {
+        console.log(result)
+    }).catch((error) => {
+        console.log(error)
     })*/
-    
-    db.collection('task').findOne({ _id: new ObjectID("5d42319d824c5e72c78ecb89") }, (error, task) => {
-        console.log(task)
-    })
-
-    db.collection('task').find({completed: false}).toArray((error, task) => {
-        console.log(task)
-    })
 })
