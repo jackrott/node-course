@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-
+const Task = require('./task')
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -101,6 +101,12 @@ userSchema.pre('save', async function (next) {
     }
 
     next()
+})
+
+//Eliminar tareas cuando sea eliminado un usuario
+userSchema.pre('remove', async function(next) {
+    const user = this   
+    await Task.deleteMany({ owner: user._id})
 })
 
 const User = mongoose.model('User', userSchema)
