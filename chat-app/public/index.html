@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <title>Chat app</title>
+        <link rel="icon" href="/img/favicon.png">
+        <link rel="stylesheet" href="/css/styles.min.css">
+    </head>
     <body>
-        Chat App
-        <form id="message-form">
-            <input name="message" placeholder="Mensaje">
-            <button>Enviar</button>
-        </form>
-        <button id="send-location">Enviar ubicación</button>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/js/chat.js"></script>
+        <div class="centered-form">
+            <div class="centered-form__box">
+                <h1>Join</h1>
+                <form action="/chat.html">
+                    <label for="name">Nombre</label>
+                    <input type="text" name="username" placeholder="Escriba su nombre" required>
+                    <label for="room">Sala</label>
+                    <input type="text" name="room" placeholder="Sala" required>
+                    <button>Join</button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
